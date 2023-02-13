@@ -11,8 +11,13 @@ function App() {
   const submitPrompt = async () => {
     console.log(prompt)
     let value = await getQuery(prompt)
-    setOutput(value.data.output)
-    setImg(value.data.image)
+
+    if (value.data.error.length > 0){
+      setOutput(value.data.error)
+    }else{
+      setOutput(value.data.output)
+      setImg(value.data.image)
+    }
   }
 
   return (

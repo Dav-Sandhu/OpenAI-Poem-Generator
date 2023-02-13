@@ -20,33 +20,28 @@ const sendRequest = async (input) => {
         const response = await openai.createEdit({
             model: "text-davinci-edit-001",
             input: input,
-			temperature: 0.25,
-            instruction: "turn the sentence into a poem"
-    
+            instruction: "turn the sentence into a short story"
         })
-
         const output = response.data.choices[0].text
-        console.log(output)
 
         const res_obj = await openai.createImage({
             prompt: output,
             n: 1,
-            size: "512x512"
+            size: "256x256"
         })
 
         const image = res_obj.data.data[0].url
-        console.log(image)
 
+        story.error = ""
         story.output = output
         story.image = image
 
     }catch(err){
         
         if (err.response) {
-            console.log(err.response.status);
-            console.log(err.response.data);
+            story.error = err.response.data
         } else {
-            console.log(err.message);
+            story.error = err.message
         }
     }
 }
@@ -55,10 +50,6 @@ const app = express()
 
 app.use(cors())
 app.use(express.json())
-
-app.get('/', (req, res) => {
-    res.send("back end")
-})
 
 app.post('/', async (req, res) => {
     await sendRequest(req.body.prompt)
