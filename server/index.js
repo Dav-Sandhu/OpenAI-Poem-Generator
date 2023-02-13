@@ -17,11 +17,11 @@ const openai = new OpenAIApi(
 
 const sendRequest = async (input) => {
     try{
-        const response = await openai.createEdit({
-            model: "text-davinci-edit-001",
-            input: input,
-            instruction: "turn the sentence into a short story"
+        const response = await openai.createCompletion({
+            model: "text-davinci-003",
+            prompt: "turn the following into a short poem: " + input
         })
+
         const output = response.data.choices[0].text
 
         const res_obj = await openai.createImage({

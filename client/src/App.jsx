@@ -9,7 +9,7 @@ function App() {
   const [img, setImg] = useState()
 
   const submitPrompt = async () => {
-    console.log(prompt)
+
     let value = await getQuery(prompt)
 
     if (value.data.error.length > 0){
