@@ -22,25 +22,39 @@ function App() {
 
   return (
     <div className="App">
-      <form onSubmit={(e) => {
-        e.preventDefault()
-        setOutput("Loading...")
-        submitPrompt()
-      }}>
+      <div className="text-start fs-1 ms-5 text-danger fw-semibold">Poem Generator</div>
+      <form
+        className="input-group ps-5 pe-5 pt-2" 
+        onSubmit={(e) => {
+          e.preventDefault()
+          setOutput("Loading...")
+          submitPrompt()
+        }
+      }>
 
-        <label htmlFor="prompt">Prompt: </label>
+        <label
+          className="input-group-text" 
+          htmlFor="prompt">
+            Enter a Prompt: 
+        </label>
         <input
           id="prompt"
+          className="form-control"
           type="text"
           value={prompt} 
           onChange={(e) => {
             setPrompt(e.target.value)
           }} />
 
-          <input type="submit" value="Submit" />
+          <input 
+            className="input-group-text"
+            type="submit" 
+            value="Submit" />
       </form>
-      <img src={img} alt="" /><br />
-      {output}
+      <div className="d-flex flex-column bg-dark m-5 p-4">
+        <div className="fs-2 text-light text-center mb-2">{output}</div>
+        <img className="border border-secondary ms-5 me-5" src={img} alt="" /><br />
+      </div>
     </div>
   )
 }
